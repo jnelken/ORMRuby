@@ -39,7 +39,7 @@ class SQLObject
   end
 
   def self.table_name
-    @table_name ||= self.to_s.tableize #self is a class
+    @table_name ||= self.to_s.tableize
   end
 
   def self.all
