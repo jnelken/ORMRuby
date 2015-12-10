@@ -1,3 +1,4 @@
+require 'searchable'
 describe 'Searchable' do
   before(:each) { DBConnection.reset }
   after(:each) { DBConnection.reset }
