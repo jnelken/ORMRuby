@@ -11,24 +11,21 @@ class SQLObject
         #{table_name}
       SQL
 
-      columns.map(&:to_sym) #{ |col| col.to_sym }
+      columns.map(&:to_sym)
   end
 
   def self.finalize!
-
     self.columns.each do |column|
-      #get
-      define_method(column) do
 
+      define_method(column) do
       attributes[column]
       end
-      #set
+
       col_set_sym = "#{column}=".to_sym
       define_method(col_set_sym) do |val|
 
         attributes[column] = val
       end
-
     end
 
     nil

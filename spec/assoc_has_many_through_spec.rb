@@ -1,3 +1,5 @@
+require 'associatable'
+
 describe 'Associatable' do
   before(:each) { DBConnection.reset }
   after(:each) { DBConnection.reset }
