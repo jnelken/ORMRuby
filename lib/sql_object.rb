@@ -63,6 +63,9 @@ class SQLObject
     self.parse_all(results).first
   end
 
+
+
+
   def initialize(params = {})
     params.each do |attr_name, val|
       attr_name = attr_name.to_sym
