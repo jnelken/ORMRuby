@@ -2,33 +2,29 @@ require_relative 'db_connection'
 require 'active_support/inflector'
 
 class SQLObject
-
   def self.columns
     columns = DBConnection.execute2(<<-SQL)[0]
       SELECT
         *
       FROM
         #{table_name}
-      SQL
+    SQL
 
-      columns.map(&:to_sym)
+    columns.map(&:to_sym)
   end
 
   def self.finalize!
     self.columns.each do |column|
-
       define_method(column) do
-      attributes[column]
+        attributes[column]
       end
 
       col_set_sym = "#{column}=".to_sym
-      define_method(col_set_sym) do |val|
 
+      define_method(col_set_sym) do |val|
         attributes[column] = val
       end
     end
-
-    nil
   end
 
   def self.table_name=(table_name)
@@ -45,7 +41,7 @@ class SQLObject
         #{table_name}.*
       FROM
         #{table_name}
-      SQL
+    SQL
 
     self.parse_all(results)
   end
@@ -62,10 +58,9 @@ class SQLObject
         #{table_name}
       WHERE
         id = #{id}
+    SQL
 
-      SQL
-
-      self.parse_all(results).first
+    self.parse_all(results).first
   end
 
   def initialize(params = {})
@@ -75,6 +70,7 @@ class SQLObject
       unless self.class.columns.include?(attr_name)
         raise "unknown attribute '#{attr_name}'"
       end
+
       self.send("#{attr_name}=", val)
     end
   end
@@ -98,6 +94,7 @@ class SQLObject
       VALUES
         (#{question_marks})
     SQL
+
     self.id = DBConnection.last_insert_row_id
   end
 

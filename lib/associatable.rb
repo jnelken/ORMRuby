@@ -7,9 +7,11 @@ class AssocOptions
     :primary_key,
     :foreign_key
   )
+
   def model_class
     self.class_name.constantize
   end
+  
   def table_name
     self.class_name.constantize.table_name
   end
