@@ -3,7 +3,7 @@ require_relative 'sql_object'
 
 module Searchable
   def where(params)
-    cols_and_qs = params.keys.map {|atr| "#{atr} = ?" }.join(" AND ")
+    columns_and_qs = params.keys.map {|atr| "#{atr} = ?" }.join(" AND ")
 
     results = DBConnection.execute(<<-SQL, *params.values)
       SELECT
@@ -11,7 +11,7 @@ module Searchable
       FROM
         #{self.table_name}
       WHERE
-        #{cols_and_qs}
+        #{columns_and_qs}
     SQL
 
     self.parse_all(results)

@@ -11,7 +11,7 @@ class AssocOptions
   def model_class
     self.class_name.constantize
   end
-  
+
   def table_name
     self.class_name.constantize.table_name
   end
@@ -85,8 +85,8 @@ module Associatable
       src_pk = src_options.primary_key
       src_fk = src_options.foreign_key
 
-      key_val = self.send(thru_fk)
-      results = DBConnection.execute(<<-SQL, key_val)
+      key_value = self.send(thru_fk)
+      results = DBConnection.execute(<<-SQL, key_value)
         SELECT
           #{src_table}.*
         FROM
